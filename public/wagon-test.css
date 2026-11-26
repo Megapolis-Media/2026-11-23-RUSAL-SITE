@@ -1,0 +1,116 @@
+#main:has([data-wagon-test]) { overflow-x: clip; }
+@media (width > 660px) {
+  [data-wagon-test] .prediction-train { animation: none; }
+}
+
+[data-wagon-test] {
+  --wagon-width: min(1560px, 126vw);
+  --wagon-lift: calc(var(--wagon-height) * .055);
+  --wagon-height: calc(var(--wagon-width) * 793 / 1983);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-items: center;
+  min-height: calc(var(--wagon-height) + 3rem);
+  scroll-margin-block-start: max(0px, calc((100svh - var(--wagon-stage-height, var(--wagon-height) + 3rem)) / 2));
+  padding-block: 1.5rem;
+}
+
+.wagon-test-scenery {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, #173044 0%, #0a1727 59%, var(--night) 89%);
+  transition: filter .28s ease;
+}
+
+.wagon-test-scenery::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(50% + var(--wagon-height) * .41 - var(--wagon-lift));
+  inset-inline: 0;
+  height: clamp(8px, 1.45vw, 17px);
+  border-block: 2px solid #66656a;
+  background: repeating-linear-gradient(90deg, #303035 0 12px, #101b28 12px 31px);
+  box-shadow: 0 7px 14px #0008;
+}
+
+.wagon-test-camera {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 37%;
+  transition: transform .62s cubic-bezier(.2, .67, .25, 1);
+}
+[data-wagon-stopped]:not([data-wagon-closing]) .wagon-test-camera { transform: scale(1.24); }
+
+.wagon-test-track {
+  position: absolute;
+  top: calc(50% - var(--wagon-lift));
+  left: 50%;
+  z-index: 0;
+  display: flex;
+  width: max-content;
+  height: var(--wagon-height);
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+
+.wagon-test-car { position: relative; flex: none; width: var(--wagon-width); height: 100%; }
+.wagon-test-car img { display: block; width: 100%; height: 100%; }
+[data-wagon-test] > .carriage-frame {
+  --door-travel: 22%;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(calc(var(--wagon-height) * -.08 - var(--wagon-lift))) scale(.58, .55);
+  pointer-events: none;
+}
+[data-wagon-test] .table-scene {
+  width: min(100%, calc(max(180px, 100svh - var(--broadcast-space) - 72px) * 1671 / 941));
+  margin-inline: auto;
+}
+[data-wagon-test]:not([data-wagon-stopped]) :is(.table-hotspot, .carriage-leaf) { pointer-events: none; }
+[data-wagon-stopped] .wagon-test-scenery { filter: brightness(.38); }
+[data-wagon-stopped] > .carriage-frame {
+  --door-travel: 100%;
+  opacity: 1;
+  transform: none;
+  transition: opacity .24s ease-out, transform .75s cubic-bezier(.2, .75, .25, 1);
+  pointer-events: auto;
+}
+[data-wagon-stopped] .carriage-leaf { transition: transform .9s cubic-bezier(.4, 0, .2, 1); }
+[data-wagon-closing] .wagon-test-scenery { filter: none; }
+[data-wagon-closing] > .carriage-frame {
+  --door-travel: 0%;
+  opacity: 0;
+  transform: translateY(calc(var(--wagon-height) * -.08 - var(--wagon-lift))) scale(.19, .23);
+  transition: opacity .32s ease .26s, transform .46s ease-in .10s;
+  pointer-events: none;
+}
+[data-wagon-closing] :is(.table-hotspot, .carriage-leaf) { pointer-events: none; }
+[data-wagon-closing] .carriage-leaf { transition: transform .37s ease-in-out; }
+
+@media (max-width: 660px) {
+  [data-wagon-test] {
+    --wagon-width: 148vw;
+    --wagon-lift: calc(var(--wagon-height) * -.025);
+    min-height: 0;
+    padding-block: 0;
+    scroll-margin-block-start: 0;
+  }
+  .wagon-test-scenery { inset-block-start: 0; filter: brightness(.38); transition: none; }
+  .wagon-test-camera { transform: none; transition: none; }
+  [data-wagon-test] > .carriage-frame { opacity: 1; transform: none; transition: none; pointer-events: auto; }
+  [data-wagon-test]:not([data-wagon-stopped]) .table-hotspot { pointer-events: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-wagon-test] > .carriage-frame,
+  [data-wagon-test] .carriage-leaf,
+  .wagon-test-camera,
+  .wagon-test-scenery { transition: none; }
+  [data-wagon-stopped]:not([data-wagon-closing]) .wagon-test-camera { transform: none; }
+}

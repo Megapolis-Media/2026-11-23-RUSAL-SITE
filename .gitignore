@@ -60,3 +60,6 @@ Thumbs.db
 
 # Ready site assets (e.g. public/assets and src/assets) remain tracked.
 # Do not add blanket image ignores such as *.png, *.jpg or *.svg.
+
+# Local SQLite state for the application.
+/.data/

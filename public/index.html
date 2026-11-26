@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1829">
+  <meta name="description" content="Новогодний экспресс РУСАЛ FM. Праздничный телерадиоэфир 23 декабря 2026 года, с 08:00 до 12:00 по Москве.">
+  <title>Новогодний экспресс РУСАЛ FM</title>
+  <link rel="icon" href="/assets/rusal.png" type="image/png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/wagon-test.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">К содержимому</a>
+  <header class="header" id="top">
+    <div class="wrap header-inner">
+      <a href="#top" class="brand brand--white" aria-label="РУСАЛ, начало страницы"><img src="/assets/rusal.png" alt="РУСАЛ" width="461" height="212"></a>
+      <div class="contacts">
+        <a class="contact" href="tel:+78003006308"><span>Прямой эфир</span><strong>8 800 300 63 08</strong></a>
+        <a class="contact" data-max><span>MAX</span><strong>+7 909 979 30 70</strong></a>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" id="broadcast" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="sr-only">Новогодний экспресс РУСАЛ FM</h1>
+      <div class="scenery wrap" id="scenery">
+        <video class="hero-motion" id="hero-motion" src="/assets/new-year-express.mp4?v=3" poster="/assets/new-year-express-start.jpg" width="1440" height="810" muted playsinline webkit-playsinline preload="auto" aria-hidden="true"></video>
+        <img class="hero-still" id="hero-still" src="/assets/new-year-express-still.jpg?v=3" width="2304" height="1302" alt="" decoding="async">
+        <div class="hero-controls">
+          <button type="button" class="hero-playback" id="hero-playback" aria-label="Воспроизвести видео" aria-controls="hero-motion" hidden></button>
+        </div>
+        <div class="video" id="video" hidden></div>
+      </div>
+      <p class="video-note" id="video-note" hidden><span id="video-message"></span> <button class="text-button" id="video-retry" hidden>Повторить</button></p>
+    </section>
+    <section class="broadcast-controls wrap" aria-label="Панель эфира">
+      <div class="broadcast-bar">
+        <img class="radio-brand" src="/assets/rusal-fm.png" alt="РУСАЛ FM" width="533" height="127">
+        <button class="radio-button" id="radio-toggle" type="button" aria-label="Слушать радио" aria-pressed="false"><i aria-hidden="true"></i><span>Слушать радио</span></button>
+        <a class="broadcast-action" href="#chat">Передать привет</a>
+        <button class="broadcast-action" id="watch-broadcast" type="button" aria-controls="video">Смотреть эфир</button>
+        <label class="radio-volume" for="radio-volume">
+          <span>Громкость радио</span>
+          <input id="radio-volume" type="range" min="0" max="100" value="80">
+        </label>
+      </div>
+      <audio id="radio" preload="none"></audio>
+      <p class="broadcast-status" id="radio-status" role="status" hidden></p>
+      <p class="broadcast-status" id="watch-status" role="status" hidden></p>
+    </section>
+    <div class="carriage-deck wrap">
+      <section class="carriage" id="announce" data-promo aria-label="Праздничный телерадиоэфир">
+        <div class="carriage-frame carriage-frame--table carriage-frame--fit-doors">
+          <div class="table-scene" id="announce-panel">
+            <img class="broadcast-table" src="/assets/holiday-broadcast-table-hd.webp?v=3" width="3342" height="1882" alt="Новогодний стол в купе с радио, телефоном, открыткой и счастливым билетом." loading="lazy" decoding="async">
+            <div class="table-hotspots">
+              <div class="table-object table-object--radio">
+                <span class="table-object-glow" aria-hidden="true"></span>
+                <button class="table-hotspot" type="button" aria-label="Радио — предложить трек" aria-haspopup="dialog" aria-controls="scene-music" title="Музыкальный проводник"></button>
+              </div>
+              <div class="table-object table-object--phone">
+                <span class="table-object-glow" aria-hidden="true"></span>
+                <button class="table-hotspot" type="button" aria-label="Телефон — отправить видеопоздравление" aria-haspopup="dialog" aria-controls="scene-greetings" title="Марафон экспресс-поздравлений"></button>
+              </div>
+              <div class="table-object table-object--postcard">
+                <span class="table-object-glow" aria-hidden="true"></span>
+                <button class="table-hotspot" type="button" aria-label="Открыть открытку" aria-haspopup="dialog" aria-controls="scene-postcard" title="Открытка"></button>
+              </div>
+              <div class="table-object table-object--tickets">
+                <span class="table-object-glow" aria-hidden="true"></span>
+                <button class="table-hotspot" type="button" aria-label="Открыть счастливый билет" aria-haspopup="dialog" aria-controls="scene-ticket" title="Ваш счастливый билетик!"></button>
+              </div>
+            </div>
+          </div>
+          <div class="carriage-doors" aria-hidden="true"><span class="carriage-leaf carriage-leaf--left"></span><span class="carriage-leaf carriage-leaf--right"></span></div>
+        </div>
+      </section>
+      <section class="carriage predictions" id="predictions" aria-labelledby="predictions-title">
+        <h2 id="predictions-title" class="sr-only">Новогоднее предсказание</h2>
+        <div class="carriage-frame carriage-frame--prediction carriage-frame--fit-doors">
+          <div class="prediction-scene" id="predictions-panel">
+            <img class="prediction-landscape" src="/assets/prediction-landscape-v2.jpg" alt="" width="2304" height="1152" loading="lazy" decoding="async">
+            <p class="prediction-instruction">Нажми на вагон,<br>получи предсказание<br>на следующий год</p>
+            <div class="prediction-rail">
+              <div class="prediction-train" id="prediction-train" aria-hidden="true"></div>
+              <button class="prediction-trigger" id="prediction-trigger" type="button" aria-haspopup="dialog" aria-controls="fortune">Получить предсказание</button>
+            </div>
+            <img class="prediction-window" src="/assets/prediction-frame.png" alt="" width="2304" height="1152" loading="lazy" decoding="async">
+          </div>
+          <div class="carriage-doors" aria-hidden="true"><span class="carriage-leaf carriage-leaf--left"></span><span class="carriage-leaf carriage-leaf--right"></span></div>
+        </div>
+      </section>
+      <section class="carriage chat" id="chat" aria-labelledby="chat-title">
+        <div class="carriage-frame carriage-frame--chat carriage-frame--fit-doors">
+          <div class="carriage-panel" id="chat-panel" role="group" aria-labelledby="chat-title">
+            <div class="chat-stack">
+              <header class="chat-heading">
+                <h2 id="chat-title">Чат эфира</h2>
+              </header>
+              <div class="chat-window">
+                <section class="chat-feed" aria-labelledby="chat-feed-title">
+                  <h3 id="chat-feed-title">Сообщения</h3>
+                  <div class="chat-feed-body">
+                    <p id="chat-feed-status" role="status">Загружаем сообщения…</p>
+                    <ul id="messages" class="messages"></ul>
+                    <nav class="chat-pages" aria-label="Страницы сообщений">
+                      <button class="text-button" id="newer" type="button" hidden>Новые сообщения</button>
+                      <button class="text-button" id="older" type="button" hidden>Ранние сообщения</button>
+                    </nav>
+                  </div>
+                </section>
+                <form id="chat-form" class="chat-form" aria-label="Форма сообщения">
+                  <div class="chat-message-field">
+                    <label for="chat-message">Сообщение</label>
+                    <div class="chat-message-input">
+                      <textarea id="chat-message" name="message" rows="2" placeholder="Написать в чат" required maxlength="1000"></textarea>
+                      <span class="chat-paperclip" title="Прикрепить фото">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 11-8.4 8.4a4.5 4.5 0 0 1-6.4-6.4l9.2-9.2a3 3 0 0 1 4.2 4.2l-9.2 9.2a1.5 1.5 0 0 1-2.1-2.1l8.4-8.4"/></svg>
+                        <input id="chat-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" aria-label="Прикрепить фото" aria-describedby="chat-photo-help">
+                      </span>
+                    </div>
+                    <p id="chat-photo-help" class="sr-only">JPG, PNG или WebP, до 5 МБ</p>
+                    <div class="chat-attached-file" id="chat-attached-file" hidden>
+                      <span id="chat-file-name" role="status"></span>
+                      <button class="text-button" id="chat-remove-photo" type="button">Убрать фото</button>
+                    </div>
+                    <button class="button" id="chat-continue" type="button" aria-label="Отправить сообщение" aria-haspopup="dialog" aria-controls="chat-details" disabled>
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <p class="form-status" id="chat-status" role="status"></p>
+                  <dialog class="chat-details" id="chat-details" aria-labelledby="chat-details-title">
+                    <div class="chat-details-inner">
+                      <button type="button" class="close" id="chat-details-close" aria-label="Закрыть">×</button>
+                      <h3 id="chat-details-title">Чтобы написать в чат, введите свои данные</h3>
+                      <label>Имя и фамилия
+                        <input name="fullName" required maxlength="141" autocomplete="name" autofocus>
+                      </label>
+                      <label>Предприятие
+                        <input name="company" required maxlength="150" autocomplete="organization">
+                      </label>
+                      <div class="chat-consent">
+                        <label class="consent">
+                          <input type="checkbox" name="consent" value="yes" required disabled>
+                          <span>Согласие на обработку персональных данных</span>
+                        </label>
+                        <p id="consent-text" hidden></p>
+                        <a id="policy-link" target="_blank" rel="noopener" hidden>Политика обработки данных</a>
+                      </div>
+                      <button class="button" type="submit" disabled>Отправить сообщение</button>
+                      <p class="form-status" id="chat-dialog-status" role="status"></p>
+                    </div>
+                  </dialog>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="carriage-doors" aria-hidden="true"><span class="carriage-leaf carriage-leaf--left"></span><span class="carriage-leaf carriage-leaf--right"></span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a class="footer-rusal brand--white" href="#top" aria-label="РУСАЛ, наверх"><img src="/assets/rusal.png" alt="РУСАЛ" width="461" height="212"></a>
+      <img class="footer-megapolis" src="/assets/megapolis-media.svg" alt="Мегаполис Медиа" width="489" height="103">
+    </div>
+  </footer>
+  <dialog class="scene-dialog scene-dialog--postcard" id="scene-postcard" aria-labelledby="announce-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Закрыть открытку" autofocus>×</button></form>
+    <div class="paper-frame" aria-hidden="true">
+      <span class="paper-corner"></span>
+      <span class="paper-corner"></span>
+      <span class="paper-corner"></span>
+      <span class="paper-corner"></span>
+    </div>
+    <div class="scene-dialog-content">
+      <h2 id="announce-title">Новогодний экспресс <span class="postcard-brand">Русал fm</span> отправляется в путь!</h2>
+      <p>Приглашаем вас в волшебное путешествие — из 2026-го в 2027-й, полное тёплых встреч, душевных историй и праздничных чудес!</p>
+      <p>Вместе мы сделаем остановки на самых важных станциях уходящего года, вспомним яркие корпоративные события, пообщаемся с лидерами компании и узнаем, какие удивительные маршруты ждут нас впереди.</p>
+      <p>А ещё в нашем уютном купе будут звучать любимые песни в исполнении дорогих коллег.</p>
+      <div class="scene-broadcast-time">
+        <div class="scene-broadcast-schedule">
+          <p>Не пропустите новогоднюю трансляцию</p>
+          <mark>23 декабря, с 8:00 до 12:00 мск.</mark>
+        </div>
+        <p>Слушайте или смотрите эфир на этом сайте.</p>
+      </div>
+    </div>
+  </dialog>
+  <dialog class="scene-dialog scene-dialog--ticket" id="scene-ticket" aria-labelledby="scene-ticket-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Закрыть счастливый билет" autofocus>×</button></form>
+    <div class="paper-frame" aria-hidden="true">
+      <span class="paper-corner"></span>
+      <span class="paper-corner"></span>
+      <span class="paper-corner"></span>
+      <span class="paper-corner"></span>
+    </div>
+    <div class="scene-dialog-content">
+      <h2 id="scene-ticket-title">Ваш счастливый билетик!</h2>
+      <p>В течение трансляции собирайте билеты с цифрами счастливого номера телефона. Тот, кто первым соберет весь номер и дозвонится по нему в эфир – получит целый мешок подарков!</p>
+    </div>
+  </dialog>
+  <dialog class="scene-dialog scene-dialog--cream" id="scene-music" aria-labelledby="scene-music-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Закрыть музыкальную заявку" autofocus>×</button></form>
+    <div class="scene-dialog-content">
+      <h2 id="scene-music-title">Музыкальный проводник</h2>
+      <p>Оставляйте свои музыкальные заявки. Самые популярные песни попадут в праздничный плейлист.</p>
+      <form class="track-form" id="music-form">
+        <label for="song">Название песни и исполнитель</label>
+        <input id="song" name="song" required maxlength="200" placeholder="Название песни — исполнитель" disabled>
+        <button class="button" type="submit" disabled>Отправить трек</button>
+        <p class="form-status" id="music-status" role="status"></p>
+      </form>
+    </div>
+  </dialog>
+  <dialog class="scene-dialog scene-dialog--cream scene-dialog--greetings" id="scene-greetings" aria-labelledby="scene-greetings-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Закрыть марафон поздравлений" autofocus>×</button></form>
+    <div class="scene-dialog-content">
+      <h2 id="scene-greetings-title">Марафон экспресс-поздравлений!</h2>
+      <p>Запишите видеокружок с тёплыми новогодними пожеланиями для коллег и отправьте его на номер РУСАЛ FM в MAX <strong>до 18 декабря включительно</strong>.</p>
+      <p>Ваши видеоприветы отправятся в путешествие по городам РУСАЛа и станут частью нашего новогоднего эфира. А самые яркие и душевные видео мы отметим подарками!</p>
+      <a data-max class="button" id="max-send" hidden>Отправить видеопоздравление</a>
+      <p id="max-closed" hidden>Приём видеопоздравлений завершён</p>
+    </div>
+  </dialog>
+  <dialog class="fortune" id="fortune" aria-labelledby="fortune-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Закрыть предсказание" autofocus>×</button></form>
+    <div class="fortune-star" aria-hidden="true">✦</div>
+    <div class="eyebrow">Предсказание на 2027 год</div>
+    <h2 id="fortune-title"></h2>
+    <p id="fortune-text"></p>
+    <form method="dialog"><button type="submit" class="button">Закрыть</button></form>
+  </dialog>
+</body>
+</html>

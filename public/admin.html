@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Управление эфиром — Новогодний экспресс РУСАЛ FM</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/admin.js"></script>
+</head>
+<body>
+  <header class="header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="На главную"><img src="/assets/rusal.png" alt="РУСАЛ" width="461" height="212"></a><a href="/">К эфиру</a></div></header>
+  <main class="wrap chat">
+    <h2>Управление эфиром</h2>
+    <p class="form-status" id="admin-status" role="status"></p>
+    <form id="admin-login" class="activity admin-block">
+      <label>Ключ администратора <input required name="token" type="password" autocomplete="off"></label>
+      <button class="button" type="submit">Войти</button>
+    </form>
+    <div id="admin-content" hidden>
+      <form id="admin-settings" class="activity admin-block">
+        <h3>Настройки</h3>
+        <label>Режим эфира
+          <select name="phase">
+            <option value="auto">По расписанию</option>
+            <option value="before">До эфира</option>
+            <option value="live">Прямой эфир</option>
+            <option value="replay">Запись</option>
+          </select>
+        </label>
+        <label>Отправка в чат
+          <select name="chat"><option value="open">Открыта</option><option value="closed">Закрыта</option></select>
+        </label>
+        <p id="chat-config-note" hidden>Чтобы включить отправку, добавьте утверждённое согласие и ссылку на политику в настройки сервера.</p>
+        <button class="button" type="submit">Сохранить настройки</button>
+        <button class="text-button" type="button" id="download-music">Скачать заявки CSV</button>
+        <button class="text-button" type="button" id="admin-exit">Выйти</button>
+      </form>
+      <section class="activity admin-block" aria-labelledby="moderation">
+        <h3 id="moderation">Сообщения чата</h3>
+        <ul id="admin-messages" class="messages"></ul>
+        <p id="empty-admin" hidden>Сообщений пока нет.</p>
+        <button id="admin-older" class="text-button" hidden>Загрузить ранние сообщения</button>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
