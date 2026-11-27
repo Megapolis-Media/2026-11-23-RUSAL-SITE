@@ -1,26 +1,26 @@
 const carriageCount = 7
 const maxWagonsPerPass = 2.5
 
-export function initWagonTest(section) {
-  section.dataset.wagonTest = ''
+export function initCarriageMotion(section) {
+  section.dataset.wagonMotion = ''
 
   const scenery = document.createElement('div')
-  scenery.className = 'wagon-test-scenery'
+  scenery.className = 'express-wagon-scenery'
   scenery.setAttribute('aria-hidden', 'true')
   const track = document.createElement('div')
-  track.className = 'wagon-test-track'
+  track.className = 'express-wagon-track'
   for (let index = 0; index < carriageCount; index += 1) {
     const carriage = document.createElement('div')
-    carriage.className = 'wagon-test-car'
+    carriage.className = 'express-wagon-car'
     const car = new Image()
-    car.src = '/assets/wagon-test-car.webp'
+    car.src = '/assets/express-carriage.webp'
     car.alt = ''
     car.draggable = false
     carriage.append(car)
     track.append(carriage)
   }
   const camera = document.createElement('div')
-  camera.className = 'wagon-test-camera'
+  camera.className = 'express-wagon-camera'
   camera.append(track)
   scenery.append(camera)
   section.prepend(scenery)

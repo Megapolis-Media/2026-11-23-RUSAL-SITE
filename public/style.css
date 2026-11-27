@@ -234,9 +234,9 @@ body:has(.broadcast-controls) { padding-block-end: calc(var(--broadcast-space) +
   --object-shape: polygon(0.00% 16.57%, 90.61% 0.00%, 100.00% 81.07%, 6.14% 100.00%);
 }
 .table-object--tickets {
-  --object-x: 60.12; --object-y: 60.36;
-  width: 21.32%; height: 20.41%;
-  --object-shape: inset(0 round 5%);
+  --object-x: 59.46; --object-y: 58.49;
+  width: 22.13%; height: 23.59%;
+  --object-shape: polygon(3.2% 0, 100% 20%, 96% 100%, 0 83%);
 }
 @media (pointer: coarse) {
   .table-hotspot { min-width: 44px; min-height: 44px; clip-path: none; }
@@ -326,6 +326,14 @@ textarea { resize: vertical; }
   white-space: nowrap;
   text-shadow: 0 1px 5px #07101d;
   pointer-events: none;
+}
+@media (width > 660px) {
+  .prediction-instruction {
+    color: #d9eaff;
+    font-family: "Great Vibes", var(--serif);
+    font-size: min(3.5cqw, 2.75rem);
+    line-height: 1.13;
+  }
 }
 .prediction-window { z-index: 2; pointer-events: none; }
 .prediction-rail { position: absolute; inset: 0; z-index: 1; clip-path: inset(0 9.5% 0 7.1%); pointer-events: none; }
@@ -493,7 +501,10 @@ body:has(.scene-dialog[open]) { overflow: hidden; }
     radial-gradient(circle at right center, transparent 4px, #000 4.75px) right top / 51% 13px repeat-y;
 }
 .scene-dialog--ticket h2 { font-size: clamp(2rem, 5.5vw, 3.35rem); }
-.scene-dialog--ticket .scene-dialog-content { padding-inline: clamp(1.6rem, 5vw, 2.6rem); }
+.scene-dialog--ticket .scene-dialog-content {
+  padding: 4.15rem clamp(2rem, 6vw, 3.35rem) clamp(2.45rem, 5vw, 3rem);
+}
+.scene-dialog--ticket .scene-dialog-content p { line-height: 1.36; }
 .scene-dialog--ticket .close { right: 1.25rem; top: .95rem; }
 .paper-frame { position: absolute; inset: .7rem .95rem; border: 3px double currentColor; border-radius: 9px; pointer-events: none; color: #99602e; }
 .paper-corner {

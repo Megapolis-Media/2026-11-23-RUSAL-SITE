@@ -1,4 +1,5 @@
 import { predictions } from './predictions.js'
+import { initCarriageMotion } from './carriage-motion.js'
 
 const get = id => document.getElementById(id)
 const broadcastControls = document.querySelector('.broadcast-controls')
@@ -534,97 +535,6 @@ handleForm(chatForm, 'chat', 'chatOpen', 'chat-status', (form, id) => {
   return data
 }, '')
 
-function initCarriageDoors() {
-  const carriages = [...document.querySelectorAll('.carriage:not([data-wagon-test])')].map(section => ({
-    section,
-    frame: section.querySelector('.carriage-frame'),
-    linked: false,
-  }))
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
-  const mobileDoors = matchMedia('(max-width: 660px)')
-  let animationFrame = 0
-  let linkedSection = location.hash.slice(1)
-  let chatOpeningSpace = 0
-
-  function updateDoors() {
-    animationFrame = 0
-    const viewport = window.innerHeight
-    const openingStart = viewport * .66
-    const closingEnd = viewport * .18
-    const page = document.scrollingElement
-    const remaining = page.scrollHeight - page.clientHeight - page.scrollTop
-    let nextChatOpeningSpace = 0
-    const bounds = carriages.map(carriage => carriage.frame.getBoundingClientRect())
-    carriages.forEach((carriage, index) => {
-      const { top, bottom, height } = bounds[index]
-      const visible = !carriage.section.hidden && bottom > 0 && top < viewport
-      const isTable = carriage.section.id === 'announce'
-      const isShowcase = isTable || carriage.section.id === 'predictions'
-      if (!visible) carriage.linked = false
-      // Short frames still need time fully open as they cross the middle of the screen.
-      const openingEnd = Math.max(viewport * .16, viewport * .55 - height / 2)
-      const closingStart = Math.min(viewport * .64, viewport * .45 + height / 2)
-      const isChat = carriage.section.id === 'chat'
-      let entering = (openingStart - top) / (openingStart - openingEnd)
-      if (isChat && visible) entering = Math.max(entering, 1 - remaining / (viewport * .25))
-      const leaving = isChat ? 1 : (bottom - closingEnd) / (closingStart - closingEnd)
-      if (carriage.section.id === linkedSection && visible) {
-        carriage.linked = true
-        linkedSection = ''
-      }
-      let progress = reducedMotion.matches || carriage.linked ? 1 : Math.max(0, Math.min(1, entering, leaving))
-      if (mobileDoors.matches) {
-        const distancePastStart = viewport / 2 - (isChat ? top : (top + bottom) / 2)
-        const openingDistance = isChat ? height / 2 : viewport * .18
-        if (isChat) {
-          // Leave enough room for the center of the last block to reach the midpoint.
-          const available = distancePastStart + remaining - chatOpeningSpace
-          nextChatOpeningSpace = Math.max(0, Math.ceil(openingDistance + 1 - available))
-        }
-        const tableLead = isTable ? openingDistance : 0
-        const opening = (distancePastStart + tableLead) / openingDistance
-        const mobileClosingStart = viewport * .27 + height / 2
-        const closing = isChat ? 1 : (bottom - closingEnd) / (mobileClosingStart - closingEnd)
-        const inOpeningZone = visible && page.scrollTop > 1 && opening > 0 && closing > 0
-        progress = inOpeningZone ? (reducedMotion.matches ? 1 : Math.min(1, opening, closing)) : 0
-      }
-      const travel = progress * progress * (3 - 2 * progress) * 100
-      carriage.frame.style.setProperty('--door-travel', `${travel.toFixed(2)}%`)
-      if (isShowcase) {
-        const glowStart = isTable ? 1 : .9
-        if (!visible || progress < .1 || reducedMotion.matches) {
-          carriage.section.removeAttribute('data-intro-glow')
-        } else if (progress >= glowStart && !carriage.section.hasAttribute('data-intro-glow')) {
-          carriage.section.setAttribute('data-intro-glow', '')
-        }
-      }
-    })
-    if (nextChatOpeningSpace !== chatOpeningSpace) {
-      chatOpeningSpace = nextChatOpeningSpace
-      document.documentElement.style.setProperty('--chat-opening-space', `${chatOpeningSpace}px`)
-      scheduleDoors()
-    }
-  }
-
-  function scheduleDoors() {
-    if (!animationFrame) animationFrame = requestAnimationFrame(updateDoors)
-  }
-
-  document.documentElement.classList.add('has-carriage-motion')
-  updateDoors()
-  window.addEventListener('scroll', scheduleDoors, { passive: true })
-  window.addEventListener('resize', scheduleDoors)
-  window.addEventListener('pageshow', scheduleDoors)
-  window.addEventListener('hashchange', () => {
-    linkedSection = location.hash.slice(1)
-    scheduleDoors()
-  })
-  reducedMotion.addEventListener('change', scheduleDoors)
-  const layoutObserver = new ResizeObserver(scheduleDoors)
-  layoutObserver.observe(get('main'))
-  for (const { frame } of carriages) layoutObserver.observe(frame)
-}
-
 initHeroMotion()
 initPredictionTrain()
 function updateBroadcastSpace() {
@@ -632,11 +542,8 @@ function updateBroadcastSpace() {
 }
 updateBroadcastSpace()
 new ResizeObserver(updateBroadcastSpace).observe(broadcastControls)
-if (new URLSearchParams(location.search).get('wagon-test') === '1') {
-  const { initWagonTest } = await import('./wagon-test.js')
-  for (const section of document.querySelectorAll('.carriage')) initWagonTest(section)
-}
-initCarriageDoors()
+document.documentElement.classList.add('has-carriage-motion')
+for (const section of document.querySelectorAll('.carriage')) initCarriageMotion(section)
 refreshConfig()
 refreshMessages()
 setInterval(() => {

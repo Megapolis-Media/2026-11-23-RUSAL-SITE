@@ -8,7 +8,7 @@
   <title>Новогодний экспресс РУСАЛ FM</title>
   <link rel="icon" href="/assets/rusal.png" type="image/png">
   <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/wagon-test.css">
+  <link rel="stylesheet" href="/carriage-motion.css">
   <script type="module" src="/app.js"></script>
 </head>
 <body>
@@ -54,7 +54,7 @@
       <section class="carriage" id="announce" data-promo aria-label="Праздничный телерадиоэфир">
         <div class="carriage-frame carriage-frame--table carriage-frame--fit-doors">
           <div class="table-scene" id="announce-panel">
-            <img class="broadcast-table" src="/assets/holiday-broadcast-table-hd.webp?v=3" width="3342" height="1882" alt="Новогодний стол в купе с радио, телефоном, открыткой и счастливым билетом." loading="lazy" decoding="async">
+            <img class="broadcast-table" src="/assets/holiday-broadcast-table-invitation.webp?v=4" width="3342" height="1882" alt="Новогодний стол в купе с радио, телефоном, открыткой и счастливым билетом." loading="lazy" decoding="async">
             <div class="table-hotspots">
               <div class="table-object table-object--radio">
                 <span class="table-object-glow" aria-hidden="true"></span>
@@ -70,7 +70,7 @@
               </div>
               <div class="table-object table-object--tickets">
                 <span class="table-object-glow" aria-hidden="true"></span>
-                <button class="table-hotspot" type="button" aria-label="Открыть счастливый билет" aria-haspopup="dialog" aria-controls="scene-ticket" title="Ваш счастливый билетик!"></button>
+                <button class="table-hotspot" type="button" aria-label="Открыть счастливый билет" aria-haspopup="dialog" aria-controls="scene-ticket" title="Счастливый билет"></button>
               </div>
             </div>
           </div>
@@ -199,8 +199,8 @@
       <span class="paper-corner"></span>
     </div>
     <div class="scene-dialog-content">
-      <h2 id="scene-ticket-title">Ваш счастливый билетик!</h2>
-      <p>В течение трансляции собирайте билеты с цифрами счастливого номера телефона. Тот, кто первым соберет весь номер и дозвонится по нему в эфир – получит целый мешок подарков!</p>
+      <h2 id="scene-ticket-title">Счастливый билет – большая игра на Русал&nbsp;fm!</h2>
+      <p>Внимательно слушайте или смотрите трансляцию от начала и до конца, соберите номера всех счастливых билетов<br> и дозвонитесь по получившемуся номеру в прямой эфир.<br> Кто успеет первым, заберет себе мешок подарков! Удачи!</p>
     </div>
   </dialog>
   <dialog class="scene-dialog scene-dialog--cream" id="scene-music" aria-labelledby="scene-music-title">
@@ -211,7 +211,7 @@
       <form class="track-form" id="music-form">
         <label for="song">Название песни и исполнитель</label>
         <input id="song" name="song" required maxlength="200" placeholder="Название песни — исполнитель" disabled>
-        <button class="button" type="submit" disabled>Отправить трек</button>
+        <button class="button" type="submit" disabled>Отправить заявку</button>
         <p class="form-status" id="music-status" role="status"></p>
       </form>
     </div>

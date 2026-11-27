@@ -13,9 +13,10 @@ async function assetsFrom(dir, prefix = '') {
 
 const assets = await assetsFrom('public')
 for (const asset of [
-  '/index.html', '/app.js', '/assets/new-year-express.mp4', '/assets/new-year-express-start.jpg',
+  '/index.html', '/app.js', '/carriage-motion.js', '/carriage-motion.css',
+  '/assets/express-carriage.webp', '/assets/new-year-express.mp4', '/assets/new-year-express-start.jpg',
   '/assets/new-year-express-still.jpg', '/assets/train.webp',
-  '/assets/holiday-broadcast-table-hd.webp', '/assets/chat-compartment.jpg',
+  '/assets/holiday-broadcast-table-invitation.webp', '/assets/chat-compartment.jpg',
   '/assets/carriage-trim.png', '/assets/carriage-hd-left.jpg', '/assets/carriage-hd-right.jpg',
   '/assets/prediction-landscape-v2.jpg', '/assets/prediction-frame.png', '/assets/prediction-wagon.png',
   '/assets/paper-corner.png',
