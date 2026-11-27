@@ -1,0 +1,42 @@
+name: Deploy RUSAL production
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: rusal-fm-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.repository == 'Megapolis-Media/2026-11-23-RUSAL-SITE' && github.ref == 'refs/heads/master' && !github.event.deleted
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: production
+      url: https://rusal.knzteam.ru
+    steps:
+      - name: Deploy the approved commit over SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          credentials=$(mktemp -d)
+          trap 'rm -rf -- "$credentials"' EXIT
+          printf '%s\n' "$DEPLOY_KEY" > "$credentials/key"
+          printf '%s\n' "$KNOWN_HOSTS" > "$credentials/known_hosts"
+          unset DEPLOY_KEY KNOWN_HOSTS
+          ssh -F /dev/null -i "$credentials/key" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o "UserKnownHostsFile=$credentials/known_hosts" -o GlobalKnownHostsFile=/dev/null \
+            -o ConnectTimeout=20 -o ServerAliveInterval=20 -o ServerAliveCountMax=3 \
+            rusal-deploy@194.58.103.93 "$GITHUB_SHA"
+      - name: Verify the public site
+        run: curl --fail --silent --show-error --retry 3 --max-time 15 --output /dev/null https://rusal.knzteam.ru/api/config

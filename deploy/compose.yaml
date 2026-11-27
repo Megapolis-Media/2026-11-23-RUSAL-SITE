@@ -1,0 +1,32 @@
+name: rusal-fm
+services:
+  web:
+    image: ${RUSAL_IMAGE:?Set the release image}
+    restart: unless-stopped
+    init: true
+    env_file:
+      - path: runtime.env
+        format: raw
+    environment:
+      PUBLIC_ORIGIN: https://rusal.knzteam.ru
+    ports:
+      - "127.0.0.1:18178:3000"
+    volumes:
+      - ./data:/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    cpus: 1.5
+    pids_limit: 128
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/config').then(r => { if (!r.ok) process.exitCode = 1 }).catch(() => { process.exitCode = 1 })"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
