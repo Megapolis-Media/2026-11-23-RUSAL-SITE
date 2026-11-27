@@ -1,9 +1,9 @@
-#main:has([data-wagon-test]) { overflow-x: clip; }
+#main:has([data-wagon-motion]) { overflow-x: clip; }
 @media (width > 660px) {
-  [data-wagon-test] .prediction-train { animation: none; }
+  [data-wagon-motion] .prediction-train { animation: none; }
 }
 
-[data-wagon-test] {
+[data-wagon-motion] {
   --wagon-width: min(1560px, 126vw);
   --wagon-lift: calc(var(--wagon-height) * .055);
   --wagon-height: calc(var(--wagon-width) * 793 / 1983);
@@ -18,7 +18,7 @@
   padding-block: 1.5rem;
 }
 
-.wagon-test-scenery {
+.express-wagon-scenery {
   position: absolute;
   z-index: -1;
   inset: 0 calc(50% - 50vw);
@@ -28,7 +28,7 @@
   transition: filter .28s ease;
 }
 
-.wagon-test-scenery::after {
+.express-wagon-scenery::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -40,15 +40,15 @@
   box-shadow: 0 7px 14px #0008;
 }
 
-.wagon-test-camera {
+.express-wagon-camera {
   position: absolute;
   inset: 0;
   transform-origin: 50% 37%;
   transition: transform .62s cubic-bezier(.2, .67, .25, 1);
 }
-[data-wagon-stopped]:not([data-wagon-closing]) .wagon-test-camera { transform: scale(1.24); }
+[data-wagon-stopped]:not([data-wagon-closing]) .express-wagon-camera { transform: scale(1.24); }
 
-.wagon-test-track {
+.express-wagon-track {
   position: absolute;
   top: calc(50% - var(--wagon-lift));
   left: 50%;
@@ -60,21 +60,21 @@
   will-change: transform;
 }
 
-.wagon-test-car { position: relative; flex: none; width: var(--wagon-width); height: 100%; }
-.wagon-test-car img { display: block; width: 100%; height: 100%; }
-[data-wagon-test] > .carriage-frame {
+.express-wagon-car { position: relative; flex: none; width: var(--wagon-width); height: 100%; }
+.express-wagon-car img { display: block; width: 100%; height: 100%; }
+[data-wagon-motion] > .carriage-frame {
   --door-travel: 22%;
   width: 100%;
   opacity: 0;
   transform: translateY(calc(var(--wagon-height) * -.08 - var(--wagon-lift))) scale(.58, .55);
   pointer-events: none;
 }
-[data-wagon-test] .table-scene {
+[data-wagon-motion] .table-scene {
   width: min(100%, calc(max(180px, 100svh - var(--broadcast-space) - 72px) * 1671 / 941));
   margin-inline: auto;
 }
-[data-wagon-test]:not([data-wagon-stopped]) :is(.table-hotspot, .carriage-leaf) { pointer-events: none; }
-[data-wagon-stopped] .wagon-test-scenery { filter: brightness(.38); }
+[data-wagon-motion]:not([data-wagon-stopped]) :is(.table-hotspot, .carriage-leaf) { pointer-events: none; }
+[data-wagon-stopped] .express-wagon-scenery { filter: brightness(.38); }
 [data-wagon-stopped] > .carriage-frame {
   --door-travel: 100%;
   opacity: 1;
@@ -83,7 +83,7 @@
   pointer-events: auto;
 }
 [data-wagon-stopped] .carriage-leaf { transition: transform .9s cubic-bezier(.4, 0, .2, 1); }
-[data-wagon-closing] .wagon-test-scenery { filter: none; }
+[data-wagon-closing] .express-wagon-scenery { filter: none; }
 [data-wagon-closing] > .carriage-frame {
   --door-travel: 0%;
   opacity: 0;
@@ -95,22 +95,22 @@
 [data-wagon-closing] .carriage-leaf { transition: transform .37s ease-in-out; }
 
 @media (max-width: 660px) {
-  [data-wagon-test] {
+  [data-wagon-motion] {
     --wagon-width: 148vw;
     --wagon-lift: calc(var(--wagon-height) * -.025);
     min-height: 0;
     padding-block: 0;
     scroll-margin-block-start: 0;
   }
-  .wagon-test-scenery { inset-block-start: 0; filter: brightness(.38); transition: none; }
-  .wagon-test-camera { transform: none; transition: none; }
-  [data-wagon-test] > .carriage-frame { opacity: 1; transform: none; transition: none; pointer-events: auto; }
-  [data-wagon-test]:not([data-wagon-stopped]) .table-hotspot { pointer-events: auto; }
+  .express-wagon-scenery { inset-block-start: 0; filter: brightness(.38); transition: none; }
+  .express-wagon-camera { transform: none; transition: none; }
+  [data-wagon-motion] > .carriage-frame { opacity: 1; transform: none; transition: none; pointer-events: auto; }
+  [data-wagon-motion]:not([data-wagon-stopped]) .table-hotspot { pointer-events: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  [data-wagon-test] > .carriage-frame,
-  [data-wagon-test] .carriage-leaf,
-  .wagon-test-camera,
-  .wagon-test-scenery { transition: none; }
-  [data-wagon-stopped]:not([data-wagon-closing]) .wagon-test-camera { transform: none; }
+  [data-wagon-motion] > .carriage-frame,
+  [data-wagon-motion] .carriage-leaf,
+  .express-wagon-camera,
+  .express-wagon-scenery { transition: none; }
+  [data-wagon-stopped]:not([data-wagon-closing]) .express-wagon-camera { transform: none; }
 }
