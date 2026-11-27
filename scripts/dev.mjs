@@ -2,12 +2,15 @@ import { createServer } from 'node:http'
 import { DatabaseSync } from 'node:sqlite'
 import { mkdirSync, readFileSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
+import { dirname } from 'node:path'
 import { Readable } from 'node:stream'
 import { createWorker } from '../server/worker.mjs'
 import { entryFor, assetHeaders, videoAssetResponse } from '../server/assets.mjs'
 
-mkdirSync('.data', { recursive: true })
-const database = new DatabaseSync(process.env.DATABASE_PATH || '.data/local.sqlite')
+const databasePath = process.env.DATABASE_PATH || '.data/local.sqlite'
+mkdirSync(dirname(databasePath), { recursive: true })
+const database = new DatabaseSync(databasePath)
+const publicOrigin = process.env.PUBLIC_ORIGIN ? new URL(process.env.PUBLIC_ORIGIN).origin : null
 const migration = readFileSync(new URL('../drizzle/0000_initial.sql', import.meta.url), 'utf8')
 database.exec(migration)
 if (!database.prepare("PRAGMA table_info(music)").all().some(column => column.name === 'visitor')) {
@@ -61,7 +64,8 @@ const port = Number(portIndex >= 0 ? arguments_[portIndex + 1] : process.env.POR
 createServer((incoming, outgoing) => {
   const perform = async () => {
     const method = incoming.method
-    const request = new Request('http://' + incoming.headers.host + incoming.url, {
+    const origin = publicOrigin || 'http://' + incoming.headers.host
+    const request = new Request(origin + incoming.url, {
       method, headers: incoming.headers,
       ...(['GET', 'HEAD'].includes(method) ? {} : { body: Readable.toWeb(incoming), duplex: 'half' }),
     })

@@ -39,3 +39,5 @@ npm run build
 ## Работа с репозиторием
 
 Основная ветка разработки — `dev`. Правила работы и выпуска описаны в [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md) и [регламенте владельца](docs/MAINTAINERS.md).
+
+Выкладка на `rusal.knzteam.ru` использует [Node.js и SQLite на сервере Megapolis Media](deploy/README.md).
